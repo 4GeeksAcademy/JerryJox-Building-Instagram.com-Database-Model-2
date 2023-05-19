@@ -22,24 +22,24 @@ class Followers(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_from_id = Column(Integer, ForeignKey('user_from.id'))
+    user_from_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-    user_to_id = Column(Integer, ForeignKey('user_to.id'))
+    user_to_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
 class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, nullable=False, ForeignKey=('user_to.id'))
-    relationship(user_from.id)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
 class Comment(Base):
-    __tablename__ = 'followers'
+    __tablename__ = 'comment'
     id = Column(Integer, primary_key=True)
     comment = Column(String(250), nullable=False)
-    author_id = Column(Integer, nullable=False, ForeignKey=('user_to.id'))
+    author_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
-    post_id = Column(Integer, nullable=False, ForeignKey=('user_to.id'))
+    post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
     post = relationship(Post)
 
 class Media(Base):
